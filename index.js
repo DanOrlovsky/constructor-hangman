@@ -1,25 +1,50 @@
-var prompt = require('prompt');
+
 var figlet = require('figlet');
 var clear = require('clear');
 var sleep = require('system-sleep');
+var inquirer = require('inquirer');
 var Hangman = require('./lib/hangman-game.js');            
 
 
 DisplayOpeningTitle();
-var hangman = new Hangman(10);
+PromptGameStart();
 
 
-var schema = {
-    properties: {
-        letter: {
-            description: 'Enter a Letter: ',
-            pattern: /^[a-zA-Z]+$/,
-            message: 'You can guess only letters!',
-            required: true,
+function PromptGameStart() {
+    var question = [
+        {
+            type: "list",
+            name: "startOrQuit",
+            message: "Difficulty Select: ",
+            choices: [
+                'Easy',
+                'Medium',
+                'Hard',
+                'Pansie (Quit)'
+            ],
         }
-    }
+    ];
+    
+    inquirer.prompt(question).then(data => { 
+        switch(data.startOrQuit) {
+            case 'Easy':
+                console.log("Easy mode activated");
+                var hangman = new Hangman(15);
+                hangman.initializeGame();
+                break;
+            case 'Medium':
+                console.log("Medium mode activated");
+                break;
+            case 'Hard':
+                console.log("Hard mode activated");
+                break;
+            default:
+                console.log("QUITTER!!");
+                process.exit();
+                break;
+        }
+    });
 }
-
 
 function DisplayOpeningTitle() {
     clear();
@@ -30,7 +55,7 @@ function DisplayOpeningTitle() {
         }
         console.log(data);
     })
-    sleep(5000);    
+    sleep(10);    
 }
 
 /*
