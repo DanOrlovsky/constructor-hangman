@@ -1,6 +1,8 @@
 # Node Hangman
 
 A Console-running Node Game.  
+  
+Clone the repository and run: _npm install_ to get required node packages.  Run: _node index_ to play the game!
 
 Three levels of difficulty:
 * Easy - 15 tries.
